@@ -7,6 +7,9 @@ const upload = require("../middlewares/multer-config");
 // Post CRUD
 
 router.post("/", auth, upload.single("post_image"), postCtrl.createPost);
+router.get("/", auth, postCtrl.getAllPosts);
+router.get("/:id", auth, postCtrl.getOnePost);
+router.delete("/:id", auth, postCtrl.deleteOnePost);
 
 /*// Images
 router.get("/image/:id", auth, postCtrl.getOneImage);

@@ -66,7 +66,7 @@ exports.login = (req, res) => {
               expiresIn: "24h",
             }
           );
-          res.cookie("jwt", token);
+          res.cookie("jwt", token, { httpOnly: true });
           res.status(201).json({
             user: result[0],
             token: token /*jwt.sign(
