@@ -72,3 +72,38 @@ exports.deleteOnePost = (req, res) => {
     res.status(200).json(result);
   });
 };
+
+exports.likeUnlikePost = (req, res) => {
+  const postId = req.body.postId;
+  const userId = req.params.id;
+  const sql = `SELECT * FROM likes WHERE likes.user_id = ${userId} AND likes.post_id = ${postId}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(404).json({ err });
+      throw err;
+    }
+
+    if (result.length === 0) {
+      const sql = `INSERT INTO likes (user_id, post_id) VALUES (${userId}, ${postId})`;
+      db.query(sql, (err, result) => {
+        if (err) {
+          console.log(err);
+          res.status(404).json({ err });
+          throw err;
+        }
+        res.status(200).json(result);
+      });
+    } else {
+      const sql = `DELETE FROM likes WHERE likes.user_id = ${userId} AND likes.post_id = ${postId}`;
+      db.query(sql, (err, result) => {
+        if (err) {
+          console.log(err);
+          res.status(404).json(err);
+          throw err;
+        }
+        res.status(200).json(result);
+      });
+    }
+  });
+};

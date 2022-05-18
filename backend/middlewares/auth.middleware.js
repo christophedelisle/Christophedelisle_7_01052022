@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   const token = req.cookies.jwt;
 
   if (token) {
-    const decodedToken = jwt.verify(token, process.env.JWT_KEY_TOKEN);
+    const decodedToken = jwt.verify(token, `${process.env.JWT_KEY_TOKEN}`);
 
     userId = decodedToken.userId;
 

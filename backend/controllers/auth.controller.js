@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 exports.signup = (req, res) => {
   // hashage du mdp
-  //const { user_password: password } = req.body;
+
   bcrypt
     .hash(req.body.password, 10)
 
@@ -15,12 +15,12 @@ exports.signup = (req, res) => {
         user_firstname: req.body.firstname,
         user_lastname: req.body.lastname,
       };
-      console.log(user);
+
       // protection contre les attaques par injection SQL en utilisant le SET "?"
       const sql = "INSERT INTO users SET ?";
       const db = dbc.getDB();
+
       db.query(sql, user, (err, result) => {
-        console.log(result);
         if (!result) {
           // email mysql indexé en tant que "unique" préalablement dans bdd
           res.status(200).json({ message: "Email déjà enregistré" });
@@ -41,8 +41,7 @@ exports.login = (req, res) => {
     password: req.body.password,
   };
 
-  const sql =
-    "SELECT user_firstname, user_lastname, user_password, user_id, user_email FROM users WHERE user_email=?";
+  const sql = "SELECT * FROM users WHERE user_email=?";
   const db = dbc.getDB();
 
   db.query(sql, email, (err, result) => {
@@ -83,5 +82,23 @@ exports.login = (req, res) => {
           return res.status(404).json({ err });
         }
       });
+  });
+};
+
+exports.logout = (req, res) => {
+  res.clearCookie("jwt");
+  res.status(200).json("Deconnecté !");
+};
+
+exports.deleteAccount = (req, res) => {
+  const userId = req.params.id;
+  const sql = `DELETE FROM users WHERE user_id = ?`;
+  const db = dbc.getDB();
+  db.query(sql, userId, (err, results) => {
+    if (err) {
+      return res.status(404).json({ err });
+    }
+    res.clearCookie("jwt");
+    res.status(200).json("Compte supprimé !");
   });
 };

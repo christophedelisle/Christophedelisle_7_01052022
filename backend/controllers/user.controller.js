@@ -5,8 +5,8 @@ exports.getOneUser = (req, res) => {
   //const userId = req.params.id;
   const { id: userId } = req.params;
 
-  const sqlGetUser = `SELECT * FROM users WHERE users.user_id = ${userId};`;
-  db.query(sqlGetUser, (err, result) => {
+  const sql = `SELECT * FROM users WHERE users.user_id = ${userId};`;
+  db.query(sql, (err, result) => {
     if (err) {
       res.status(404).json({ err });
       throw err;
@@ -19,8 +19,8 @@ exports.getOneUser = (req, res) => {
 exports.updateOneUser = (req, res) => {
   const { user_firstname, user_lastname } = req.body;
   const { id: userId } = req.params;
-  const sqlUpdateUser = `UPDATE users SET user_firstname = "${user_firstname}", user_lastname = "${user_lastname}" WHERE users.user_id = ${userId};`;
-  db.query(sqlUpdateUser, (err, result) => {
+  const sql = `UPDATE users SET user_firstname = "${user_firstname}", user_lastname = "${user_lastname}" WHERE users.user_id = ${userId};`;
+  db.query(sql, (err, result) => {
     if (err) {
       res.status(404).json({ err });
       throw err;

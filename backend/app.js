@@ -1,15 +1,15 @@
 // importation du package express
 const express = require("express");
+
 const cookieParser = require("cookie-parser");
+
+//Accés aux chemin de notre système de fichier
 const path = require("path");
-/*// Accés aux chemin de notre système de fichier
-const path = require("path");*/
 
 // appel de la methode express (création de l'application)
 const app = express();
 
 // déclaration des routes
-//const sauceRoutes = require("./routes/sauce");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 const postRoutes = require("./routes/post.routes");
@@ -42,7 +42,6 @@ app.use(cookieParser());
 //Route pour requéter les images dans le dossier "static" images
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-//app.use("/api/sauces", sauceRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
