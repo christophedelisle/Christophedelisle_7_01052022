@@ -22,7 +22,7 @@ exports.signup = (req, res) => {
 
       db.query(sql, user, (err, result) => {
         if (!result) {
-          // email mysql indexé en tant que "unique" préalablement dans bdd
+          // email mysql indexé en tant que "unique" préalablement dans la bdd
           res.status(200).json({ message: "Email déjà enregistré" });
         } else {
           res.status(201).json({ message: "Utilisateur créé !" });

@@ -7,12 +7,12 @@ module.exports = (req, res, next) => {
   if (token) {
     const decodedToken = jwt.verify(token, `${process.env.JWT_KEY_TOKEN}`);
 
-    userId = decodedToken.userId;
-
+    const userId = decodedToken.userId;
+    req.userId = userId;
     let db = dbc.getDB();
     const sql = `SELECT user_id FROM users WHERE user_id = ${userId}`;
     db.query(sql, (err) => {
-      if (err) res.status(204).json(err);
+      if (err) res.status(500).json(err);
       else {
         next();
       }

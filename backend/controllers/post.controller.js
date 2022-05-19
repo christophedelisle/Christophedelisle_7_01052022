@@ -63,13 +63,53 @@ exports.getOnePost = (req, res) => {
 
 exports.deleteOnePost = (req, res) => {
   const { id: post_id } = req.params;
-  const sql = `DELETE FROM posts WHERE posts.id = ${post_id}`;
-  db.query(sql, (err, result) => {
+  const sqlFindPostId = `SELECT * FROM posts WHERE posts.id = ${post_id};`;
+  const sqlFindAdmin = `SELECT * FROM users WHERE user_admin = 1`;
+  //("SELECT * FROM users WHERE users.user_admin = 1 AND `SELECT * FROM posts WHERE posts.id = ${post_id};`"); /*`SELECT * FROM posts WHERE posts.id = ${post_id};`*/
+  //const sqlFind = `SELECT * FROM users JOIN posts ON users.user_id = posts.user_id OR user_admin = 1`;
+
+  db.query(sqlFindPostId, (err, resultPostId) => {
     if (err) {
+      console.log(err);
       res.status(404).json({ err });
       throw err;
     }
-    res.status(200).json(result);
+    console.log("RESULTPOSTID ", resultPostId);
+
+    if (resultPostId[0].user_id === req.userId) {
+      const sqlDelete = `DELETE FROM posts WHERE posts.id = ${post_id}`;
+      db.query(sqlDelete, (err, result) => {
+        if (err) {
+          res.status(404).json({ err });
+          throw err;
+        }
+        res.status(200).json(result);
+      });
+    } else {
+      db.query(sqlFindAdmin, (err, resultAdmin) => {
+        console.log("RESULTADMIN ", resultPostId);
+
+        if (err) {
+          console.log(err);
+          res.status(404).json({ err });
+          throw err;
+        }
+        if (resultAdmin[0].user_id !== req.userId) {
+          return res.status(403).json({
+            error: "Unauthorized request!",
+          });
+        } else {
+          const sqlDelete = `DELETE FROM posts WHERE posts.id = ${post_id}`;
+          db.query(sqlDelete, (err, result) => {
+            if (err) {
+              res.status(404).json({ err });
+              throw err;
+            }
+            res.status(200).json(result);
+          });
+        }
+      });
+    }
   });
 };
 
