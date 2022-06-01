@@ -1,54 +1,22 @@
 import React from "react";
-//import "./styles/_header";
-//import { NavLink } from "react-router-dom";
-//import ProfileTab from "./ProfileTab/ProfileTab";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+//import { fab } from "@fortawesome/free-brands-svg-icons";
+import { faCheckSquare, faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   return (
     <div className="header">
-      <p></p>
       <img
         className="header__logo"
-        src="./imgs/logo/icon-left-font-recadre.png"
+        src="./imgs/logo/icon-left-font-ajuste.png"
         alt="Groupomania"
       />
-      {/* <NavLink exact to="/">
-        <img
-          className="logo"
-          src="./imgs/logo/icon-left-font-recadre.png"
-          alt="Groupomania"
-        />
-      </NavLink> */}
-      {/* {profileTab && <ProfileTab />} */}
+      <FontAwesomeIcon icon="fa-solid fa-bracket-curly" />
     </div>
   );
 };
 
 export default Header;
-
-/*import React, { useEffect, useState } from "react";
-
-const Header = (props) => {
-  const [count, setCount] = useState(0);
-  const handleClick = () => {
-    setCount(100);
-  };
-  useEffect(() => {
-    console.log("ça a changé");
-  }, []);
-
-  return (
-    <div>
-      <div className="header-container">
-        <h1>{props.title}</h1>
-        {props.nav.map((el) => (
-          <li>{el}</li>
-        ))}
-      </div>
-      <p>{count}</p>
-      <button onClick={handleClick}>ajouter</button>
-    </div>
-  );
-};
-
-export default Header;*/
+library.add(faCheckSquare, faCoffee);

@@ -1,0 +1,33 @@
+$primary-color: #fd2d01;
+$secondary-color: #ffd7d7;
+$tertiary-color: #4e5166;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+body {
+  @include flex-center;
+  width: 100%;
+  background: white;
+  font-family: "Lato", "Arial", "Helvetica", "sans-serif";
+}
+
+main {
+  @include flex-center;
+}

@@ -1,0 +1,27 @@
+@import "../../utiles/_settings.scss";
+
+.reg-log_ctn {
+  width: 100%;
+  @include flex-center;
+  background: white;
+}
+
+.use-style {
+  background-color: $secondary-color;
+  border-bottom: none !important;
+
+  &__signup {
+    border-left: solid 1px $primary-color;
+  }
+  &__login {
+    border-right: solid 1px $primary-color;
+  }
+}
+
+.use {
+  @include flex-center;
+  cursor: pointer;
+  padding: 20px;
+  width: 100%;
+  border-bottom: 1px solid $primary-color;
+}

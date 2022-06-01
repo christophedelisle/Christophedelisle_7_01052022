@@ -23,12 +23,9 @@ exports.signup = (req, res) => {
       db.query(sql, user, (err, result) => {
         if (!result) {
           // email mysql indexé en tant que "unique" préalablement dans la bdd
-          res.status(200).json({ message: "Email déjà enregistré" });
+          res.status(200).json({ message: "Email déjà existant !" });
         } else {
           res.status(201).json({ message: "Utilisateur créé !" });
-        }
-        if (err) {
-          return res.status(404).json({ err });
         }
       });
     })
@@ -45,14 +42,16 @@ exports.login = (req, res) => {
   const db = dbc.getDB();
 
   db.query(sql, email, (err, result) => {
-    console.log(result);
-
     if (result == 0) {
-      return res.status(404).json({ message: "email introuvable" });
+      return res
+        .status(200)
+        .json({ message: "Mot de passe / email incorrect" });
     } else
       bcrypt.compare(user.password, result[0].user_password).then((valid) => {
         if (!valid) {
-          return res.status(401).json({ error: "Mot de passe incorrect !" });
+          return res
+            .status(200)
+            .json({ message: "Mot de passe / email incorrect" });
         } else {
           // suppression du password dans la réponse
           delete result[0].user_password;

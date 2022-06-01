@@ -1,0 +1,18 @@
+@import "../../utiles/settings";
+
+.auth_ctn {
+  width: 65%;
+  height: 100%;
+  padding-bottom: 30px;
+  border: 3px $primary-color solid;
+  border-radius: 15px;
+  overflow: hidden;
+  background: $secondary-color;
+  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 720px) {
+  .auth_ctn {
+    width: 350px;
+  }
+}
