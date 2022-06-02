@@ -2,17 +2,14 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
   return (
-    /*<div className="App">
-      test
-      <Header title="titre1 test" nav={["acceuille1", "nav1"]} />
-      <Header title="titre2 test" nav={["acceuille2", "nav2"]} />
-    </div>*/
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/posts" element={<CreatePost />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import Button from "../Button/Button";
-import "../../../styles/pages/logins/_form.scss";
+
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
@@ -33,6 +33,8 @@ const SetForm = ({ form }) => {
   const useRefEmailError = useRef();
   const useRefPasswordError = useRef();
   const useRefAccountCreated = useRef();
+
+  const registerForRef = useRef();
 
   const { firstname, lastname } = Usignup;
 
@@ -109,6 +111,8 @@ const SetForm = ({ form }) => {
             console.log(response);
             useRefEmailError.current.innerText = response.data.message;
           }
+          console.log(registerForRef);
+          registerForRef.current.reset();
           if (response.status === 201) {
             setAccountCreated(
               (useRefAccountCreated.current.innerText = response.data.message)
@@ -120,11 +124,12 @@ const SetForm = ({ form }) => {
 
   const login = (e) => {
     e.preventDefault();
+
     axios.post("http://localhost:3000/api/auth/login", Ulogin).then((res) => {
       if (res.status === 201) {
         console.log(res);
         localStorage.setItem("user", JSON.stringify(res.data.user));
-        navigate("/");
+        navigate("/posts");
       }
       if (res.status === 200) {
         setLoginError((useRefLoginError.current.innerText = res.data.message));
@@ -135,7 +140,7 @@ const SetForm = ({ form }) => {
   return (
     <>
       {form === "register" ? (
-        <form className="form" onSubmit={signup}>
+        <form className="form" onSubmit={signup} ref={registerForRef}>
           {
             <>
               <input

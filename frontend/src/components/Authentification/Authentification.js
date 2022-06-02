@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Hall from "./Hall/Hall";
 import Form from "./Formulaire/Formulaire";
-//import "../../styles/pages/logins/_authentification.scss";
 
 const Authentification = () => {
   const [State, UpState] = useState({

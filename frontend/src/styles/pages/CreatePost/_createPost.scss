@@ -1,0 +1,12 @@
+@import "../../utiles/_settings.scss";
+
+.posts-page_ctn {
+  width: 80%;
+}
+.posts_ctn {
+  @include flex-center;
+  flex-direction: column;
+}
+.posts-news_ctn {
+  margin-top: 30px;
+}
