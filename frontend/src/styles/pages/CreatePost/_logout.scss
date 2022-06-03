@@ -1,0 +1,25 @@
+@import "../../utiles/_settings.scss";
+
+.logout_ctn {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding: 0 15px;
+  span {
+    cursor: pointer;
+    &:hover {
+      background: none;
+      color: $primary-color;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &-icon {
+    margin-right: 10px;
+  }
+}
