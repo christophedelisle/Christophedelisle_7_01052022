@@ -3,9 +3,13 @@ import Button from "../Button/Button";
 
 import axios from "axios";
 
+// Envoi vers une autre page
 import { useNavigate } from "react-router-dom";
 
+// Mise en place de la zone d'inscription et de connexion ( props "form" vers composent Authentification)
 const SetForm = ({ form }) => {
+  // Déclaration des différents "états"
+
   const [Usignup, upSignup] = useState({
     firstname: "",
     lastname: "",
@@ -18,11 +22,12 @@ const SetForm = ({ form }) => {
     password: "",
   });
 
-  const navigate = useNavigate();
-
   const [loginError, setLoginError] = useState("");
   const [accountCreated, setAccountCreated] = useState(false);
 
+  const navigate = useNavigate();
+
+  // Déclaration des références
   const useRefFirstName = useRef();
   const useRefEmail = useRef();
   const useRefPassword = useRef();
@@ -38,11 +43,14 @@ const SetForm = ({ form }) => {
 
   const { firstname, lastname } = Usignup;
 
+  // Controle (regex) des informations utilisateur
   const checkFirstName = () => {
     if (firstname === "") {
       useRefFirstNameError.current.innerText = "";
     } else {
-      const baseRegExp = new RegExp(/^\S[-a-zA-Zàâäéèêëïîôöùûüç ]*$/);
+      const baseRegExp = new RegExp(
+        /^[a-zA-Zàâäéèêëïîôöùûüç]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/
+      );
       const check = baseRegExp.test(String(firstname));
       useRefFirstNameError.current.innerText = `${
         check ? "" : "Prénom non valide"
@@ -55,7 +63,9 @@ const SetForm = ({ form }) => {
     if (lastname === "") {
       useRefLastNameError.current.innerText = "";
     } else {
-      const baseRegExp = new RegExp(/^\S[-a-zA-Zàâäéèêëïîôöùûüç]*$/);
+      const baseRegExp = new RegExp(
+        /^[a-zA-Zàâäéèêëïîôöùûüç]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/
+      );
       const check = baseRegExp.test(String(lastname));
       useRefLastNameError.current.innerText = `${
         check ? "" : "Nom non valide"
@@ -95,6 +105,7 @@ const SetForm = ({ form }) => {
     }
   };
 
+  // Création d'un compte utilisateur
   const signup = (e) => {
     e.preventDefault();
     if (
@@ -122,6 +133,7 @@ const SetForm = ({ form }) => {
     }
   };
 
+  // Connexion de l'utilisateur
   const login = (e) => {
     e.preventDefault();
 
@@ -139,6 +151,7 @@ const SetForm = ({ form }) => {
 
   return (
     <>
+      {/* Si état est sur register (voir composent Authentification) formulaile création de compte */}
       {form === "register" ? (
         <form className="form" onSubmit={signup} ref={registerForRef}>
           {
@@ -229,6 +242,7 @@ const SetForm = ({ form }) => {
           </div>
         </form>
       ) : (
+        // Si état est pas sur register (sur login) formulaile de connection
         <form className="form" onSubmit={login}>
           <input
             type="email"

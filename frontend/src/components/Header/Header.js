@@ -1,6 +1,4 @@
 import React from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   return (
@@ -8,9 +6,8 @@ const Header = () => {
       <img
         className="header_logo"
         src="./imgs/logo/icon-left-font-ajuste.png"
-        alt="Groupomania"
+        alt="Logo Groupomania"
       />
-      {/* <FontAwesomeIcon icon={faCoffee} /> */}
     </div>
   );
 };

@@ -4,6 +4,8 @@ import Logout from "../components/Logout/Logout";
 //import Posts from "../components/Posts/Posts";
 import SendPost from "../components/SendPost/SendPost";
 
+// Page d'affichage et de création des posts
+
 const CreatePost = () => {
   return (
     <div className="posts-page_ctn">

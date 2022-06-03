@@ -1,8 +1,9 @@
-//import Header from "./components/Header/Header";
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import CreatePost from "./pages/CreatePost";
+
+// Mise en place des "routes" (chemins vers les différents pages) de l'application
 
 function App() {
   return (

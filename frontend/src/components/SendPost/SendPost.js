@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 
+// Zone de création des nouveaux posts
+
 const SendPost = () => {
   const [textPostValue, upTextPostValue] = useState("");
 
