@@ -14,7 +14,7 @@ const SendPost = () => {
     upTextPostValue(e.target.value);
   };
 
-  const submitHandler = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
   };
 

@@ -3,13 +3,14 @@ const db = dbc.getDB();
 
 exports.createPost = (req, res) => {
   let { body, file } = req;
-  if (!file)
-    body = {
-      user_id: req.body.user_id,
-      author_firstname: req.body.author_firstname,
-      author_lastname: req.body.author_lastname,
-      message: req.body.message,
-    };
+  if (!file) delete req.body.post_image;
+  body = {
+    user_id: req.body.user_id,
+    author_firstname: req.body.author_firstname,
+    author_lastname: req.body.author_lastname,
+    message: req.body.message,
+    likes: "",
+  };
 
   const sql = "INSERT INTO posts SET ?";
   db.query(sql, body, (err, result) => {
@@ -56,6 +57,26 @@ exports.getOnePost = (req, res) => {
     if (err) {
       res.status(404).json({ err });
       throw err;
+    }
+    res.status(200).json(result);
+  });
+};
+
+exports.getOneImage = (req, res) => {
+  const { id: postId } = req.params;
+  const sql = `SELECT * FROM images WHERE images.post_id = ${postId};`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      res.status(404).json({ err });
+      throw err;
+    }
+    if (result[0]) {
+      result[0].image_url =
+        req.protocol +
+        "://" +
+        req.get("host") +
+        "/images/posts/" +
+        result[0].image_url;
     }
     res.status(200).json(result);
   });
@@ -115,7 +136,7 @@ exports.deleteOnePost = (req, res) => {
 
 exports.likeUnlikePost = (req, res) => {
   const postId = req.body.postId;
-  const userId = req.params.id;
+  const userId = req.body.userId;
   const sql = `SELECT * FROM likes WHERE likes.user_id = ${userId} AND likes.post_id = ${postId}`;
   db.query(sql, (err, result) => {
     if (err) {
@@ -145,5 +166,17 @@ exports.likeUnlikePost = (req, res) => {
         res.status(200).json(result);
       });
     }
+  });
+};
+
+exports.nbLikes = (req, res) => {
+  const { postId } = req.body;
+  const sql = `SELECT COUNT(*) AS total FROM likes WHERE likes.post_id = ${postId}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      res.status(404).json({ err });
+      throw err;
+    }
+    res.status(200).json(result);
   });
 };

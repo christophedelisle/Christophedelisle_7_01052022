@@ -11,6 +11,9 @@ router.get("/", auth, postCtrl.getAllPosts);
 router.get("/:id", auth, postCtrl.getOnePost);
 router.delete("/:id", auth, postCtrl.deleteOnePost);
 
+router.get("/image/:id", auth, postCtrl.getOneImage);
+
 router.patch("/:id/likeUnlike", auth, postCtrl.likeUnlikePost);
+router.post("/:id/likes", auth, postCtrl.nbLikes);
 
 module.exports = router;

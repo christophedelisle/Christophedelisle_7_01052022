@@ -47,7 +47,7 @@ const Authentification = () => {
           Créer un compte
         </Hall>
       </div>
-      {/* Si état sur register aficher formulaire de crea de compte, sinon form de connexion */}
+      {/* Si état sur register afficher formulaire de crea de compte, sinon formulaire de connexion */}
       {State.Register === "register" ? (
         <>
           <Form form="register" />
