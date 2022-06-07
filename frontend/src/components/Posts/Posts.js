@@ -11,14 +11,21 @@ const ShowPosts = () => {
 
   // useEffect ac tableau vide ??
   useEffect(() => {
-    const getPosts = () => {
-      axios.get("http://localhost:3000/api/post/").then((response) => {
-        if (response.status === 200) {
-          UpPostsData(response.data);
-        } else {
-          uPshowData(false);
-        }
-      });
+    const getPosts = async () => {
+      const token = JSON.parse(localStorage.getItem("user")).token;
+      await axios
+        .get("http://localhost:3001/api/post", {
+          withCredentials: true,
+          headers: { authorization: `Bearer ${token}` },
+        })
+
+        .then((response) => {
+          if (response.status === 200) {
+            UpPostsData(response.data);
+          } else {
+            uPshowData(false);
+          }
+        });
     };
     getPosts();
   }, []);

@@ -22,16 +22,18 @@ require("dotenv").config();
 // Gestion des problèmes de CORS (cas ou le front et le back sont hébergés sur des serveurs différents)
 app.use((req, res, next) => {
   // accés à l'API depuis n'importe quelle origine
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+
   // Headers pris en charges
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
   );
+  res.setHeader("Access-Control-Allow-Credentials", true);
   // méthodes de requetes prisent en charge
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
+    "GET, POST, PUT, DELETE, OPTIONS, PATCH"
   );
   next();
 });

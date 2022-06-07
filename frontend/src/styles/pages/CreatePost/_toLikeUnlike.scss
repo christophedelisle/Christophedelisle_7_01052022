@@ -1,0 +1,30 @@
+@import "../../utiles/_settings.scss";
+
+.to-like-unlike {
+  &__button {
+    button {
+      font-size: 14px;
+      padding: 5px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      &.button__liked {
+        background: lighten($secondary-color, 45%);
+        &:hover {
+          background: blue;
+        }
+      }
+    }
+    span {
+      margin-right: 10px;
+    }
+  }
+  &__likes-count {
+    display: flex;
+    font-size: 13px;
+    margin: 20px 0 5px 0;
+    &__number {
+      margin: 0 0 0 5px;
+    }
+  }
+}

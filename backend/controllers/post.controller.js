@@ -9,10 +9,9 @@ exports.createPost = (req, res) => {
     author_firstname: req.body.author_firstname,
     author_lastname: req.body.author_lastname,
     message: req.body.message,
-    likes: "",
   };
 
-  const sql = "INSERT INTO posts SET ?";
+  const sql = "INSERT INTO posts2 SET ?";
   db.query(sql, body, (err, result) => {
     if (err) {
       res.status(404).json({ err });
@@ -21,7 +20,7 @@ exports.createPost = (req, res) => {
 
     const post_id = result.insertId;
     if (file) {
-      const sql = `INSERT INTO images (image_url, post_id) VALUES ("${file.filename}", ${post_id})`;
+      const sql = `INSERT INTO images2 (image_url, post_id) VALUES ("${file.filename}", ${post_id})`;
       db.query(sql, (err, result) => {
         if (err) {
           res.status(404).json({ err });
@@ -36,9 +35,10 @@ exports.createPost = (req, res) => {
 };
 
 exports.getAllPosts = (req, res) => {
-  const sql = "SELECT * FROM posts, users WHERE  posts.user_id = users.user_id";
+  const sql =
+    "SELECT * FROM posts2, users2 WHERE  posts2.user_id = users2.user_id";
   db.query(sql, (err, result) => {
-    result.forEach((result) => {
+    (result || []).forEach((result) => {
       delete result.user_password;
     });
 
@@ -52,7 +52,7 @@ exports.getAllPosts = (req, res) => {
 
 exports.getOnePost = (req, res) => {
   const { id: postId } = req.params;
-  const sql = `SELECT * FROM posts WHERE posts.id = ${postId};`;
+  const sql = `SELECT * FROM posts2 WHERE posts2.id = ${postId};`;
   db.query(sql, (err, result) => {
     if (err) {
       res.status(404).json({ err });
@@ -64,7 +64,7 @@ exports.getOnePost = (req, res) => {
 
 exports.getOneImage = (req, res) => {
   const { id: postId } = req.params;
-  const sql = `SELECT * FROM images WHERE images.post_id = ${postId};`;
+  const sql = `SELECT * FROM images2 WHERE images2.post_id = ${postId};`;
   db.query(sql, (err, result) => {
     if (err) {
       res.status(404).json({ err });
@@ -84,8 +84,8 @@ exports.getOneImage = (req, res) => {
 
 exports.deleteOnePost = (req, res) => {
   const { id: post_id } = req.params;
-  const sqlFindPostId = `SELECT * FROM posts WHERE posts.id = ${post_id};`;
-  const sqlFindAdmin = `SELECT * FROM users WHERE user_admin = 1`;
+  const sqlFindPostId = `SELECT * FROM posts2 WHERE posts2.id = ${post_id};`;
+  const sqlFindAdmin = `SELECT * FROM users2 WHERE user_admin = 1`;
   //("SELECT * FROM users WHERE users.user_admin = 1 AND `SELECT * FROM posts WHERE posts.id = ${post_id};`"); /*`SELECT * FROM posts WHERE posts.id = ${post_id};`*/
   //const sqlFind = `SELECT * FROM users JOIN posts ON users.user_id = posts.user_id OR user_admin = 1`;
 
@@ -95,10 +95,9 @@ exports.deleteOnePost = (req, res) => {
       res.status(404).json({ err });
       throw err;
     }
-    console.log("RESULTPOSTID ", resultPostId);
 
     if (resultPostId[0].user_id === req.userId) {
-      const sqlDelete = `DELETE FROM posts WHERE posts.id = ${post_id}`;
+      const sqlDelete = `DELETE FROM posts2 WHERE posts2.id = ${post_id}`;
       db.query(sqlDelete, (err, result) => {
         if (err) {
           res.status(404).json({ err });
@@ -106,12 +105,13 @@ exports.deleteOnePost = (req, res) => {
         }
         res.status(200).json(result);
       });
+    } else if (resultPostId[0].user_id !== req.userId) {
+      return res.status(301).json({
+        error: "Unauthorized request!",
+      });
     } else {
       db.query(sqlFindAdmin, (err, resultAdmin) => {
-        console.log("RESULTADMIN ", resultPostId);
-
         if (err) {
-          console.log(err);
           res.status(404).json({ err });
           throw err;
         }
@@ -120,7 +120,7 @@ exports.deleteOnePost = (req, res) => {
             error: "Unauthorized request!",
           });
         } else {
-          const sqlDelete = `DELETE FROM posts WHERE posts.id = ${post_id}`;
+          const sqlDelete = `DELETE FROM posts2 WHERE posts2.id = ${post_id}`;
           db.query(sqlDelete, (err, result) => {
             if (err) {
               res.status(404).json({ err });
@@ -137,16 +137,16 @@ exports.deleteOnePost = (req, res) => {
 exports.likeUnlikePost = (req, res) => {
   const postId = req.body.postId;
   const userId = req.body.userId;
-  const sql = `SELECT * FROM likes WHERE likes.user_id = ${userId} AND likes.post_id = ${postId}`;
+
+  const sql = `SELECT * FROM likes2 WHERE likes2.user_id = ${userId} AND likes2.post_id = ${postId}`;
   db.query(sql, (err, result) => {
     if (err) {
-      console.log(err);
       res.status(404).json({ err });
       throw err;
     }
 
     if (result.length === 0) {
-      const sql = `INSERT INTO likes (user_id, post_id) VALUES (${userId}, ${postId})`;
+      const sql = `INSERT INTO likes2 (user_id, post_id) VALUES (${userId}, ${postId})`;
       db.query(sql, (err, result) => {
         if (err) {
           console.log(err);
@@ -156,7 +156,7 @@ exports.likeUnlikePost = (req, res) => {
         res.status(200).json(result);
       });
     } else {
-      const sql = `DELETE FROM likes WHERE likes.user_id = ${userId} AND likes.post_id = ${postId}`;
+      const sql = `DELETE FROM likes2 WHERE likes2.user_id = ${userId} AND likes2.post_id = ${postId}`;
       db.query(sql, (err, result) => {
         if (err) {
           console.log(err);
@@ -171,7 +171,7 @@ exports.likeUnlikePost = (req, res) => {
 
 exports.nbLikes = (req, res) => {
   const { postId } = req.body;
-  const sql = `SELECT COUNT(*) AS total FROM likes WHERE likes.post_id = ${postId}`;
+  const sql = `SELECT COUNT(*) AS total FROM likes2 WHERE likes2.post_id = ${postId}`;
   db.query(sql, (err, result) => {
     if (err) {
       res.status(404).json({ err });

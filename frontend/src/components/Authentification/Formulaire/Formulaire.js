@@ -106,47 +106,59 @@ const SetForm = ({ form }) => {
   };
 
   // Création d'un compte utilisateur
-  const signup = (e) => {
-    e.preventDefault();
-    if (
-      checkFirstName() &&
-      checkLastName() &&
-      checkEmail(useRefEmail.current.value) &&
-      checkPassword(useRefPassword.current.value)
-    ) {
-      console.log("testt");
-      axios
-        .post("http://localhost:3000/api/auth/signup", Usignup)
-        .then((response) => {
-          if (response.status === 200) {
-            console.log(response);
-            useRefEmailError.current.innerText = response.data.message;
-          }
-          console.log(registerForRef);
-          registerForRef.current.reset();
-          if (response.status === 201) {
-            setAccountCreated(
-              (useRefAccountCreated.current.innerText = response.data.message)
-            );
-          }
-        });
+  const signup = async (e) => {
+    try {
+      e.preventDefault();
+      if (
+        checkFirstName() &&
+        checkLastName() &&
+        checkEmail(useRefEmail.current.value) &&
+        checkPassword(useRefPassword.current.value)
+      ) {
+        console.log("testt");
+        await axios
+          .post("http://localhost:3001/api/auth/signup", Usignup)
+          .then((response) => {
+            if (response.status === 200) {
+              console.log(response);
+              useRefEmailError.current.innerText = response.data.message;
+            }
+            console.log(registerForRef);
+            registerForRef.current.reset();
+            if (response.status === 201) {
+              setAccountCreated(
+                (useRefAccountCreated.current.innerText = response.data.message)
+              );
+            }
+          });
+      }
+    } catch (err) {
+      throw err;
     }
   };
 
   // Connexion de l'utilisateur
-  const login = (e) => {
-    e.preventDefault();
+  const login = async (e) => {
+    try {
+      e.preventDefault();
 
-    axios.post("http://localhost:3000/api/auth/login", Ulogin).then((res) => {
-      if (res.status === 201) {
-        console.log(res);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        navigate("/posts");
-      }
-      if (res.status === 200) {
-        setLoginError((useRefLoginError.current.innerText = res.data.message));
-      }
-    });
+      await axios
+        .post("http://localhost:3001/api/auth/login", Ulogin)
+        .then((res) => {
+          if (res.status === 201) {
+            console.log(res);
+            localStorage.setItem("user", JSON.stringify(res.data));
+            navigate("/posts");
+          }
+          if (res.status === 200) {
+            setLoginError(
+              (useRefLoginError.current.innerText = res.data.message)
+            );
+          }
+        });
+    } catch (err) {
+      throw err;
+    }
   };
 
   return (

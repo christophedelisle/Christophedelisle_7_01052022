@@ -17,7 +17,7 @@ exports.signup = (req, res) => {
       };
 
       // protection contre les attaques par injection SQL en utilisant le SET "?"
-      const sql = "INSERT INTO users SET ?";
+      const sql = "INSERT INTO users2 SET ?";
       const db = dbc.getDB();
 
       db.query(sql, user, (err, result) => {
@@ -38,7 +38,7 @@ exports.login = (req, res) => {
     password: req.body.password,
   };
 
-  const sql = "SELECT * FROM users WHERE user_email=?";
+  const sql = "SELECT * FROM users2 WHERE user_email=?";
   const db = dbc.getDB();
 
   db.query(sql, email, (err, result) => {
@@ -91,7 +91,7 @@ exports.logout = (req, res) => {
 
 exports.deleteAccount = (req, res) => {
   const userId = req.params.id;
-  const sql = `DELETE FROM users WHERE user_id = ?`;
+  const sql = `DELETE FROM users2 WHERE user_id = ?`;
   const db = dbc.getDB();
   db.query(sql, userId, (err, results) => {
     if (err) {

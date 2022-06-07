@@ -4,25 +4,38 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
+//const token = JSON.parse(localStorage.getItem("user")).token;
+
 const ToLikeUnlike = ({ postId }) => {
   const [LikesNbs, upLikesNbs] = useState(0);
 
   // Modification du nombe de likes dans la bdd et rechage de la page
   const modifLikes = () => {
     const data = {
-      userId: JSON.parse(localStorage.getItem("user")).user_id,
+      userId: JSON.parse(localStorage.getItem("user")).user.user_id,
       postId: postId,
     };
-
-    axios.patch("http://localhost:3000/api/post/:id/likeUnlike", data);
+    const token = JSON.parse(localStorage.getItem("user")).token;
+    axios.patch("http://localhost:3001/api/post/:id/likeUnlike", data, {
+      withCredentials: true,
+      headers: { authorization: `Bearer ${token}` },
+    });
     document.location.reload();
   };
 
   // Récupération du nombre de likes dans la bdd
   useEffect(() => {
     const getLikesNb = () => {
+      const token = JSON.parse(localStorage.getItem("user")).token;
       axios
-        .post("http://localhost:3000/api/post/:id/likes", { postId })
+        .post(
+          "http://localhost:3001/api/post/:id/likes",
+          { postId },
+          {
+            withCredentials: true,
+            headers: { authorization: `Bearer ${token}` },
+          }
+        )
         .then((res, err) => {
           if (res.status === 200) {
             const LikesNbs = res.data[0].total;

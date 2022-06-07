@@ -18,7 +18,7 @@ const normalizePort = (val) => {
 };
 
 // port écouté par server.listen (selon disponibilité)
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(process.env.PORT || "3001");
 
 // choix du port à utilisé par express
 app.set("port", port);
