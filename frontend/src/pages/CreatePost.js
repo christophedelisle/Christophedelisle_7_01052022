@@ -15,7 +15,7 @@ const CreatePost = () => {
       </div>
       <div className="posts_ctn">
         <SendPost />
-        <h2 className="posts-news_ctn">Nouveaux posts</h2>
+        <h2 className="posts-news_ctn">Nouveaux posts </h2>
         <Posts />
       </div>
     </div>

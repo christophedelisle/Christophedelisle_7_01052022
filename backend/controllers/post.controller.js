@@ -106,7 +106,7 @@ exports.deleteOnePost = (req, res) => {
         res.status(200).json(result);
       });
     } else if (resultPostId[0].user_id !== req.userId) {
-      return res.status(301).json({
+      return res.status(201).json({
         error: "Unauthorized request!",
       });
     } else {

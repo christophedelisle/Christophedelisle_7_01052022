@@ -51,20 +51,19 @@ const ToLikeUnlike = ({ postId }) => {
 
   return (
     <div className="to-like-unlike">
-      <div className="to-like-unlike__likes-count">
+      {/* <div className="to-like-unlike__likes-count">
         <FontAwesomeIcon icon={faThumbsUp} color={"grey"} />
         <p className="to-like-unlike__likes-count__number">{LikesNbs}</p>
-      </div>
-      <hr />
+      </div> */}
+
       <div className="to-like-unlike__button">
         <button className="button__liked" onClick={modifLikes}>
           <span>
             <FontAwesomeIcon icon={faThumbsUp} />
           </span>
-          Like
+          {LikesNbs}
         </button>
       </div>
-      <hr />
     </div>
   );
 };

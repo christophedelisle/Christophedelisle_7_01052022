@@ -1,12 +1,16 @@
 import React from "react";
 import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 // Bouton de déconnexion avec affichage du nom de l'utilisateur
 
 const Logout = () => {
+  const navigate = useNavigate();
+
   const logoutClick = async () => {
     const token = JSON.parse(localStorage.getItem("user")).token;
     await axios.get("http://localhost:3001/api/auth/logout", {
@@ -14,14 +18,14 @@ const Logout = () => {
       headers: { authorization: `Bearer ${token}` },
     });
     localStorage.clear();
-    window.location.href = "http://localhost:3000/";
+    navigate("/");
   };
 
+  const userName = JSON.parse(localStorage.getItem("user")).user.user_firstname;
   return (
     <div onClick={logoutClick} className="logout_ctn">
       <div className="user-name-profil">
-        {/* <p>Bonjour {userName} (userName) !</p> */}
-        <p>Bonjour !</p>
+        <p style={{ fontSize: "25px" }}>Bonjour {userName} ! </p>
       </div>
       <span>
         {" "}

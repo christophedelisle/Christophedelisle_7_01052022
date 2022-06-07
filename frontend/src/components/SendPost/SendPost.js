@@ -31,7 +31,7 @@ const SendPost = () => {
       JSON.parse(localStorage.getItem("user")).user.user_id
     );
     post.append("message", textPostValue);
-    //post.append("post_image", document.getElementById("post_image").files[0]);
+    post.append("post_image", document.getElementById("post_image").files[0]);
     console.log(post);
     // try {
     //   const response = await axios.post(
@@ -68,6 +68,7 @@ const SendPost = () => {
           className="text"
           type="text"
           required
+          placeholder="Exprimez-vous !"
           value={textPostValue}
           onChange={inputHandler}
         />

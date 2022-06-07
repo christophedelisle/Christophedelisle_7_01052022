@@ -120,10 +120,9 @@ const SetForm = ({ form }) => {
           .post("http://localhost:3001/api/auth/signup", Usignup)
           .then((response) => {
             if (response.status === 200) {
-              console.log(response);
               useRefEmailError.current.innerText = response.data.message;
             }
-            console.log(registerForRef);
+
             registerForRef.current.reset();
             if (response.status === 201) {
               setAccountCreated(

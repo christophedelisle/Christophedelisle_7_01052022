@@ -50,21 +50,17 @@ const Post = ({ post }) => {
   const handleClick = () => {
     const deletePost = async () => {
       const token = JSON.parse(localStorage.getItem("user")).token;
-      try {
-        const response = await axios.delete(
-          `http://localhost:3001/api/post/${id}`,
-          {
-            withCredentials: true,
-            headers: { authorization: `Bearer ${token}` },
-          }
-        );
-        if (response.status === 200) document.location.reload();
-        else if (response.status === 301) {
-          console.log("alert");
-        }
-      } catch (err) {
-        throw err;
-      }
+
+      axios
+        .delete(`http://localhost:3001/api/post/${id}`, {
+          withCredentials: true,
+          headers: { authorization: `Bearer ${token}` },
+        })
+        .then((res, err) => {
+          if (res.status === 200) document.location.reload();
+          else if (res.status === 201)
+            alert("Vous devez être Admin pour supprimer ce message !");
+        });
     };
     deletePost();
   };
@@ -74,6 +70,7 @@ const Post = ({ post }) => {
       <div className="post">
         <div className="post__author_ctn">
           <div className="post__author__date">
+            <p>Posté par :</p>
             <PostAuthor
               className="post__author"
               author={`${author_firstname} ${author_lastname}`}
@@ -85,6 +82,7 @@ const Post = ({ post }) => {
           </div>
         </div>
         {<Delete post={post} onClick={handleClick} />}
+
         <Text message={message} />
         {FileURL && <File FileURL={FileURL} />}
         <ToLikeUnlike postId={postId} />
