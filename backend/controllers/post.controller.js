@@ -36,7 +36,7 @@ exports.createPost = (req, res) => {
 
 exports.getAllPosts = (req, res) => {
   const sql =
-    "SELECT * FROM posts2, users2 WHERE  posts2.user_id = users2.user_id";
+    "SELECT * FROM posts2, users2 WHERE  posts2.user_id = users2.user_id ORDER BY date_creation DESC;";
   db.query(sql, (err, result) => {
     (result || []).forEach((result) => {
       delete result.user_password;
@@ -84,10 +84,11 @@ exports.getOneImage = (req, res) => {
 
 exports.deleteOnePost = (req, res) => {
   const { id: post_id } = req.params;
+  const sqlDelete = `DELETE FROM posts2 WHERE posts2.id = ${post_id}`;
   const sqlFindPostId = `SELECT * FROM posts2 WHERE posts2.id = ${post_id};`;
   const sqlFindAdmin = `SELECT * FROM users2 WHERE user_admin = 1`;
-  //("SELECT * FROM users WHERE users.user_admin = 1 AND `SELECT * FROM posts WHERE posts.id = ${post_id};`"); /*`SELECT * FROM posts WHERE posts.id = ${post_id};`*/
-  //const sqlFind = `SELECT * FROM users JOIN posts ON users.user_id = posts.user_id OR user_admin = 1`;
+  //("SELECT * FROM users2 WHERE users2.user_admin = 1 AND `SELECT * FROM posts2 WHERE posts2.id = ${post_id};`"); /*`SELECT * FROM posts2 WHERE posts2.id = ${post_id};`*/
+  //const sqlFind = `SELECT * FROM users2 JOIN posts2 ON users2.user_id = posts2.user_id OR user_admin = 1`;
 
   db.query(sqlFindPostId, (err, resultPostId) => {
     if (err) {
@@ -95,9 +96,7 @@ exports.deleteOnePost = (req, res) => {
       res.status(404).json({ err });
       throw err;
     }
-
     if (resultPostId[0].user_id === req.userId) {
-      const sqlDelete = `DELETE FROM posts2 WHERE posts2.id = ${post_id}`;
       db.query(sqlDelete, (err, result) => {
         if (err) {
           res.status(404).json({ err });
@@ -106,21 +105,16 @@ exports.deleteOnePost = (req, res) => {
         res.status(200).json(result);
       });
     } else if (resultPostId[0].user_id !== req.userId) {
-      return res.status(201).json({
-        error: "Unauthorized request!",
-      });
-    } else {
       db.query(sqlFindAdmin, (err, resultAdmin) => {
         if (err) {
           res.status(404).json({ err });
           throw err;
         }
         if (resultAdmin[0].user_id !== req.userId) {
-          return res.status(403).json({
+          return res.status(201).json({
             error: "Unauthorized request!",
           });
         } else {
-          const sqlDelete = `DELETE FROM posts2 WHERE posts2.id = ${post_id}`;
           db.query(sqlDelete, (err, result) => {
             if (err) {
               res.status(404).json({ err });

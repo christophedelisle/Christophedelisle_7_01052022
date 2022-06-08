@@ -9,7 +9,6 @@ const ShowPosts = () => {
   const [postsData, UpPostsData] = useState([]);
   const [showData, uPshowData] = useState(true);
 
-  // useEffect ac tableau vide ??
   useEffect(() => {
     const getPosts = async () => {
       const token = JSON.parse(localStorage.getItem("user")).token;

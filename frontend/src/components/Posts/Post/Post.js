@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 
-import Date from "./Date/Date";
 import PostAuthor from "./PostAuthor/PostAuthor";
 import Text from "./Text/Text";
 import File from "./File/File";
@@ -37,13 +36,7 @@ const Post = ({ post }) => {
     catchFile();
   }, [id]);
 
-  const {
-    id: postId,
-    author_firstname,
-    author_lastname,
-    // date_creation, ???? ou direct sur le front ?
-    message,
-  } = post;
+  const { id: postId, author_firstname, author_lastname, message } = post;
 
   // Suppression d'un post (la partie admin est faite dans le backend)
 
@@ -70,20 +63,17 @@ const Post = ({ post }) => {
       <div className="post">
         <div className="post__author_ctn">
           <div className="post__author__date">
-            <p>Posté par :</p>
+            <p>Posté par : </p>
             <PostAuthor
               className="post__author"
               author={`${author_firstname} ${author_lastname}`}
-            />
-            <Date
-              className="post__date"
-              //date={} ???
             />
           </div>
         </div>
         {<Delete post={post} onClick={handleClick} />}
 
         <Text message={message} />
+
         {FileURL && <File FileURL={FileURL} />}
         <ToLikeUnlike postId={postId} />
       </div>

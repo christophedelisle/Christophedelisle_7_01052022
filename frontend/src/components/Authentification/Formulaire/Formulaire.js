@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import Button from "../Button/Button";
-
 import axios from "axios";
 
 // Envoi vers une autre page
@@ -253,7 +252,7 @@ const SetForm = ({ form }) => {
           </div>
         </form>
       ) : (
-        // Si état est pas sur register (sur login) formulaile de connection
+        // Si état est pas sur register (sur login) formulaire de connexion
         <form className="form" onSubmit={login}>
           <input
             type="email"

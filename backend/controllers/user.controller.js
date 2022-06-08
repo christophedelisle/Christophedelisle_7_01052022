@@ -2,7 +2,6 @@ const dbc = require("../config/db");
 const db = dbc.getDB();
 
 exports.getOneUser = (req, res) => {
-  //const userId = req.params.id;
   const { id: userId } = req.params;
 
   const sql = `SELECT * FROM users2 WHERE users.user_id = ${userId};`;

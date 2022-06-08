@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-//const token = JSON.parse(localStorage.getItem("user")).token;
-
 const ToLikeUnlike = ({ postId }) => {
   const [LikesNbs, upLikesNbs] = useState(0);
 
@@ -51,11 +49,6 @@ const ToLikeUnlike = ({ postId }) => {
 
   return (
     <div className="to-like-unlike">
-      {/* <div className="to-like-unlike__likes-count">
-        <FontAwesomeIcon icon={faThumbsUp} color={"grey"} />
-        <p className="to-like-unlike__likes-count__number">{LikesNbs}</p>
-      </div> */}
-
       <div className="to-like-unlike__button">
         <button className="button__liked" onClick={modifLikes}>
           <span>

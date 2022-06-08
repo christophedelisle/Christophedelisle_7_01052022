@@ -32,23 +32,7 @@ const SendPost = () => {
     );
     post.append("message", textPostValue);
     post.append("post_image", document.getElementById("post_image").files[0]);
-    console.log(post);
-    // try {
-    //   const response = await axios.post(
-    //     "http://localhost:3001/api/post/",
-    //     {
-    //       withCredentials: true,
-    //       headers: { authorization: `Bearer ${token}` },
-    //     },
-    //     post
-    //   );
 
-    //   if (response.status === 200) document.location.reload();
-    // } catch (err) {
-    //   console.log(post);
-    //   console.log("testtttt");
-    //   throw err;
-    // }
     const token = JSON.parse(localStorage.getItem("user")).token;
     await axios.post("http://localhost:3001/api/post", post, {
       withCredentials: true,
