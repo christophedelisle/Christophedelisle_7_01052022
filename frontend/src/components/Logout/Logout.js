@@ -1,11 +1,10 @@
 import React from "react";
 import axios from "axios";
-
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
-// Bouton de déconnexion avec affichage du nom de l'utilisateur
+// Logout button
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -24,7 +23,7 @@ const Logout = () => {
   return (
     <div onClick={logoutClick} className="logout_ctn">
       <div className="user-name-profil">
-        <p style={{ fontSize: "25px" }}>Bonjour {userName} ! </p>
+        <p>Bonjour {userName} ! </p>
       </div>
       <span>
         {" "}

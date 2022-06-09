@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const dbc = require("../config/db");
 
 module.exports = (req, res, next) => {
+  //Recovery of a part in the header of the token to control it
   const token = req.headers.authorization.split(" ")[1];
 
   if (token) {

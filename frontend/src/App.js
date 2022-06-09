@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import CreatePost from "./pages/CreatePost";
 
-// Mise en place des "routes" (chemins vers les différents pages) de l'application
+// Implementation of "roads" (paths to the different pages) of the application
 
 function App() {
   return (

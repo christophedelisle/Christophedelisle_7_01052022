@@ -3,7 +3,7 @@ import Post from "./Post/Post";
 import "./Posts";
 import axios from "axios";
 
-// Affichage des différents posts
+// Display of different posts
 
 const ShowPosts = () => {
   const [postsData, UpPostsData] = useState([]);

@@ -24,7 +24,7 @@ $tertiary-color: #4e5166;
 body {
   @include flex-center;
   width: 100%;
-  background: white;
+  background-color: rgba(78, 81, 102, 0.9);
   font-family: "Lato", "Arial", "Helvetica", "sans-serif";
 }
 

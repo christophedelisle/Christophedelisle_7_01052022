@@ -1,10 +1,10 @@
-// importation package HTTP de node
+// import HTTP package from node
 const http = require("http");
 
-// importation de l'application
+// application import
 const app = require("./app");
 
-// renvoie d'un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaîne
+// returns from a valid port, whether supplied as a number or a string
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 
@@ -17,13 +17,13 @@ const normalizePort = (val) => {
   return false;
 };
 
-// port écouté par server.listen (selon disponibilité)
+// listening to the port
 const port = normalizePort(process.env.PORT || "3001");
 
-// choix du port à utilisé par express
+// choice of port to be used by express
 app.set("port", port);
 
-// géstion des erreurs
+// errors management
 const errorHandler = (error) => {
   if (error.syscall !== "listen") {
     throw error;
@@ -45,8 +45,8 @@ const errorHandler = (error) => {
   }
 };
 
-// Création de server pour appeler la méthode "creatServer", qui à pour argument "app".
-// Appel de la fonction pour chaque requete envoyée.
+// Server creation
+
 const server = http.createServer(app);
 
 server.on("error", errorHandler);
@@ -55,5 +55,5 @@ server.on("listening", () => {
   const bind = typeof address === "string" ? "pipe " + address : "port " + port;
   console.log("Listening on " + bind);
 });
-// écoute des requetes de "port"
+// listening to port requests
 server.listen(port);

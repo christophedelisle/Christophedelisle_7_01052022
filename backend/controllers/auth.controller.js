@@ -3,7 +3,7 @@ const dbc = require("../config/db");
 const jwt = require("jsonwebtoken");
 
 exports.signup = (req, res) => {
-  // hashage du mdp
+  // hash password
 
   bcrypt
     .hash(req.body.password, 10)
@@ -16,13 +16,13 @@ exports.signup = (req, res) => {
         user_lastname: req.body.lastname,
       };
 
-      // protection contre les attaques par injection SQL en utilisant le SET "?"
+      // SQL injection attack protection with SET "?"
       const sql = "INSERT INTO users2 SET ?";
       const db = dbc.getDB();
 
       db.query(sql, user, (err, result) => {
         if (!result) {
-          // email mysql indexé en tant que "unique" préalablement dans la bdd
+          //  "unique" email configured in bdd
           res.status(200).json({ message: "Email déjà existant !" });
         } else {
           res.status(201).json({ message: "Utilisateur créé !" });
@@ -53,28 +53,21 @@ exports.login = (req, res) => {
             .status(200)
             .json({ message: "Mot de passe / email incorrect" });
         } else {
-          // suppression du password dans la réponse
+          // remove password from response
           delete result[0].user_password;
 
           const token = jwt.sign(
-            // userId "crypté", dans le token
+            // userId "hashed", in token
             { userId: result[0].user_id },
             process.env.JWT_KEY_TOKEN,
             {
               expiresIn: "24h",
             }
           );
-          res.cookie("jwt", token, { httpOnly: true });
+          //res.cookie("jwt", token, { httpOnly: true });
           res.status(201).json({
             user: result[0],
-            token: token /*jwt.sign(
-              // userId "crypté", dans le token
-              { userId: result[0].user_id },
-              `${process.env.JWT_KEY_TOKEN}`,
-              {
-                expiresIn: "24h",
-              }
-            ),*/,
+            token: token,
           });
         }
         if (err) {
@@ -85,19 +78,6 @@ exports.login = (req, res) => {
 };
 
 exports.logout = (req, res) => {
-  res.clearCookie("jwt");
+  // res.clearCookie("jwt");
   res.status(200).json("Deconnecté !");
-};
-
-exports.deleteAccount = (req, res) => {
-  const userId = req.params.id;
-  const sql = `DELETE FROM users2 WHERE user_id = ?`;
-  const db = dbc.getDB();
-  db.query(sql, userId, (err, results) => {
-    if (err) {
-      return res.status(404).json({ err });
-    }
-    res.clearCookie("jwt");
-    res.status(200).json("Compte supprimé !");
-  });
 };

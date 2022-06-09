@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -7,7 +6,7 @@ import axios from "axios";
 const ToLikeUnlike = ({ postId }) => {
   const [LikesNbs, upLikesNbs] = useState(0);
 
-  // Modification du nombe de likes dans la bdd et rechage de la page
+  // modification of the number of likes in the database
   const modifLikes = () => {
     const data = {
       userId: JSON.parse(localStorage.getItem("user")).user.user_id,
@@ -21,7 +20,7 @@ const ToLikeUnlike = ({ postId }) => {
     document.location.reload();
   };
 
-  // Récupération du nombre de likes dans la bdd
+  // getting the number of likes in the database
   useEffect(() => {
     const getLikesNb = () => {
       const token = JSON.parse(localStorage.getItem("user")).token;

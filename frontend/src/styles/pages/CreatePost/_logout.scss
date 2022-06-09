@@ -19,10 +19,20 @@
     }
   }
   .user-name-profil {
+    font-size: 25px;
     text-transform: capitalize;
   }
 
   &-icon {
     margin-right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logout_ctn {
+    font-size: 15px;
+    .user-name-profil {
+      font-size: 16px;
+    }
   }
 }

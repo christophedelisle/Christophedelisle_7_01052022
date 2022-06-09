@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-
 import axios from "axios";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 
-// Zone de création des nouveaux posts
+// Area for creating new posts
 
 const SendPost = () => {
   const [textPostValue, upTextPostValue] = useState("");
@@ -38,9 +36,9 @@ const SendPost = () => {
       withCredentials: true,
       headers: { authorization: `Bearer ${token}` },
     });
-    console.log(token);
     document.location.reload();
   };
+
   return (
     <div className="post-send_ctn">
       <form
@@ -61,7 +59,7 @@ const SendPost = () => {
             type="file"
             name="post_image"
             id="post_image"
-            className="icons_container_add_file"
+            className="container_add_file"
           />
           <button type="submit" className="submit_ctn">
             <FontAwesomeIcon icon={faShare} />

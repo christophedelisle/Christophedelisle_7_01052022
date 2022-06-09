@@ -2,7 +2,7 @@ import React from "react";
 import Authentification from "../components/Authentification/Authentification";
 import Header from "../components/Header/Header.js";
 
-// Page d'inscription et de connexion
+// Registration and login page
 
 const Login = () => {
   return (

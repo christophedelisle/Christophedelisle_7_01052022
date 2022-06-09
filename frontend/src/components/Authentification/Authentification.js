@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Hall from "./Hall/Hall";
 import Form from "./Formulaire/Formulaire";
 
-// Composant d'authentification de la page login
+// Login page authentication component
 
 const Authentification = () => {
-  // Différents états avec état par défaut sur "login"
+  // Different states with default state on "login"
   const [State, UpState] = useState({
     Login: "login",
     Register: null,
@@ -47,7 +47,7 @@ const Authentification = () => {
           Créer un compte
         </Hall>
       </div>
-      {/* Si état sur register afficher formulaire de crea de compte, sinon formulaire de connexion */}
+      {/* If status on register, display account creation form, or else login form */}
       {State.Register === "register" ? (
         <>
           <Form form="register" />

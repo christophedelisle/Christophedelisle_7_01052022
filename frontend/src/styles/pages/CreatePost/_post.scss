@@ -1,18 +1,12 @@
 @import "../../utiles/_settings.scss";
 
-.posts {
-  padding-top: 40px;
-}
-
 .post {
-  padding-top: 20px;
   border: 3px $primary-color solid;
   border-radius: 15px;
   background: $secondary-color;
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.4);
   position: relative;
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
   width: 100%;
   padding: 10px;
@@ -20,27 +14,19 @@
 
   &__author_ctn {
     font-size: 16px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
     margin-bottom: 20px;
-    .post__author__date {
-      display: flex;
-      justify-content: flex-start;
-      flex-direction: column;
-    }
   }
 
   &__author {
     margin-top: 5px;
     margin-left: 8px;
     display: flex;
-    justify-content: flex-start;
     font-size: 18px;
     font-weight: bold;
     text-transform: capitalize;
   }
-  &__date {
-    font-size: 0.75rem;
+
+  &__message {
+    font-size: 23px;
   }
 }

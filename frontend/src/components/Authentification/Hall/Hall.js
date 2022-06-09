@@ -1,6 +1,6 @@
 import React from "react";
 
-// Zone utilisée pour les 2 états ( login et register) avec props (vers Authentification)
+// Zone used for the 2 states (login and register) with props (to Authentication)
 
 const Hall = ({ children, onClick, className }) => {
   return (

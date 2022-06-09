@@ -4,7 +4,7 @@ const postCtrl = require("../controllers/post.controller");
 const auth = require("../middlewares/auth.middleware");
 const upload = require("../middlewares/multer-config");
 
-// Routes
+// Roads
 
 router.post("/", auth, upload.single("post_image"), postCtrl.createPost);
 router.get("/", auth, postCtrl.getAllPosts);

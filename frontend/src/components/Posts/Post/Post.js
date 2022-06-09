@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-
 import axios from "axios";
-
 import PostAuthor from "./PostAuthor/PostAuthor";
 import Text from "./Text/Text";
 import File from "./File/File";
-
 import ToLikeUnlike from "./ToLikeUnlike/ToLikeUnlike.js";
-
 import Delete from "./Delete/Delete";
 
 const Post = ({ post }) => {
   const [FileURL, upFileURL] = useState(null);
-
   const id = post.id;
+  const { id: postId, author_firstname, author_lastname, message } = post;
+
+  // recovery of the image corresponding to the post in the database
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("user")).token;
@@ -36,9 +34,7 @@ const Post = ({ post }) => {
     catchFile();
   }, [id]);
 
-  const { id: postId, author_firstname, author_lastname, message } = post;
-
-  // Suppression d'un post (la partie admin est faite dans le backend)
+  // Deleting a post (the admin part is created in the backend)
 
   const handleClick = () => {
     const deletePost = async () => {
@@ -62,18 +58,14 @@ const Post = ({ post }) => {
     <>
       <div className="post">
         <div className="post__author_ctn">
-          <div className="post__author__date">
-            <p>Posté par : </p>
-            <PostAuthor
-              className="post__author"
-              author={`${author_firstname} ${author_lastname}`}
-            />
-          </div>
+          <p>Posté par : </p>
+          <PostAuthor
+            className="post__author"
+            author={`${author_firstname} ${author_lastname}`}
+          />
         </div>
         {<Delete post={post} onClick={handleClick} />}
-
         <Text message={message} />
-
         {FileURL && <File FileURL={FileURL} />}
         <ToLikeUnlike postId={postId} />
       </div>

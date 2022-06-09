@@ -2,12 +2,12 @@ import React, { useState, useRef } from "react";
 import Button from "../Button/Button";
 import axios from "axios";
 
-// Envoi vers une autre page
+// Send to another page
 import { useNavigate } from "react-router-dom";
 
-// Mise en place de la zone d'inscription et de connexion ( props "form" vers composent Authentification)
+// Setting up the registration and login area ("form" props to Authentication)
 const SetForm = ({ form }) => {
-  // Déclaration des différents "états"
+  // Declaration of the different "states"
 
   const [Usignup, upSignup] = useState({
     firstname: "",
@@ -26,7 +26,7 @@ const SetForm = ({ form }) => {
 
   const navigate = useNavigate();
 
-  // Déclaration des références
+  // Declaration of references
   const useRefFirstName = useRef();
   const useRefEmail = useRef();
   const useRefPassword = useRef();
@@ -42,7 +42,7 @@ const SetForm = ({ form }) => {
 
   const { firstname, lastname } = Usignup;
 
-  // Controle (regex) des informations utilisateur
+  // Control (regex) user information
   const checkFirstName = () => {
     if (firstname === "") {
       useRefFirstNameError.current.innerText = "";
@@ -104,7 +104,7 @@ const SetForm = ({ form }) => {
     }
   };
 
-  // Création d'un compte utilisateur
+  // Creation of a user account
   const signup = async (e) => {
     try {
       e.preventDefault();
@@ -114,7 +114,6 @@ const SetForm = ({ form }) => {
         checkEmail(useRefEmail.current.value) &&
         checkPassword(useRefPassword.current.value)
       ) {
-        console.log("testt");
         await axios
           .post("http://localhost:3001/api/auth/signup", Usignup)
           .then((response) => {
@@ -135,7 +134,7 @@ const SetForm = ({ form }) => {
     }
   };
 
-  // Connexion de l'utilisateur
+  // user login
   const login = async (e) => {
     try {
       e.preventDefault();
@@ -144,7 +143,6 @@ const SetForm = ({ form }) => {
         .post("http://localhost:3001/api/auth/login", Ulogin)
         .then((res) => {
           if (res.status === 201) {
-            console.log(res);
             localStorage.setItem("user", JSON.stringify(res.data));
             navigate("/posts");
           }
@@ -161,7 +159,7 @@ const SetForm = ({ form }) => {
 
   return (
     <>
-      {/* Si état est sur register (voir composent Authentification) formulaile création de compte */}
+      {/* If status is on register (see Authentication component) account creation form */}
       {form === "register" ? (
         <form className="form" onSubmit={signup} ref={registerForRef}>
           {
@@ -252,7 +250,7 @@ const SetForm = ({ form }) => {
           </div>
         </form>
       ) : (
-        // Si état est pas sur register (sur login) formulaire de connexion
+        // If status is not on register (on login) login form
         <form className="form" onSubmit={login}>
           <input
             type="email"

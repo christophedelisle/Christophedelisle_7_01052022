@@ -4,12 +4,12 @@ import Logout from "../components/Logout/Logout";
 import Posts from "../components/Posts/Posts";
 import SendPost from "../components/SendPost/SendPost";
 
-// Page d'affichage et de création des posts
+// Page for displaying and creating posts
 
 const CreatePost = () => {
   return (
     <div className="posts-page_ctn">
-      <Header profileTab={true} />
+      <Header />
       <div>
         <Logout />
       </div>

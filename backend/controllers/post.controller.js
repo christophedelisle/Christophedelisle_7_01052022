@@ -82,6 +82,8 @@ exports.getOneImage = (req, res) => {
   });
 };
 
+// Deletion of the post if is that of the logged in user or is an administrator
+
 exports.deleteOnePost = (req, res) => {
   const { id: post_id } = req.params;
   const sqlDelete = `DELETE FROM posts2 WHERE posts2.id = ${post_id}`;
