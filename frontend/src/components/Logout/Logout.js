@@ -2,7 +2,10 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import {
+  faRightFromBracket,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Logout button
 
@@ -19,20 +22,41 @@ const Logout = () => {
     navigate("/");
   };
 
+  const desactivateAccount = () => {
+    const token = JSON.parse(localStorage.getItem("user")).token;
+    const userId = JSON.parse(localStorage.getItem("user")).user.user_id;
+    axios.get(`http://localhost:3001/api/auth/desactivateAccount/${userId}`, {
+      withCredentials: true,
+      headers: { authorization: `Bearer ${token}` },
+    });
+    localStorage.clear();
+    alert("Compte desactivé !");
+    navigate("/");
+  };
+
   const userName = JSON.parse(localStorage.getItem("user")).user.user_firstname;
   return (
-    <div onClick={logoutClick} className="logout_ctn">
+    <div className="account_ctn">
+      <div onClick={desactivateAccount} className="logout_ctn">
+        <span>
+          {" "}
+          <FontAwesomeIcon className="logout_ctn-icon" icon={faTrashCan} />
+          Desactiver le compte
+        </span>
+      </div>
       <div className="user-name-profil">
         <p>Bonjour {userName} ! </p>
       </div>
-      <span>
-        {" "}
-        <FontAwesomeIcon
-          className="logout_ctn-icon"
-          icon={faArrowRightFromBracket}
-        />
-        Se déconnecter
-      </span>
+      <div onClick={logoutClick} className="logout_ctn">
+        <span>
+          {" "}
+          <FontAwesomeIcon
+            className="logout_ctn-icon"
+            icon={faRightFromBracket}
+          />
+          Se déconnecter
+        </span>
+      </div>
     </div>
   );
 };

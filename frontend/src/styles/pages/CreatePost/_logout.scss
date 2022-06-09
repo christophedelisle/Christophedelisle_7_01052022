@@ -1,5 +1,20 @@
 @import "../../utiles/_settings.scss";
 
+.account_ctn {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+
+  .user-name-profil {
+    padding-right: 25px;
+    padding-bottom: 20px;
+    font-size: 28px;
+    text-transform: capitalize;
+    font-weight: bold;
+    align-items: center;
+  }
+}
+
 .logout_ctn {
   display: inline-block;
   font-size: 18px;

@@ -79,5 +79,18 @@ exports.login = (req, res) => {
 
 exports.logout = (req, res) => {
   // res.clearCookie("jwt");
-  res.status(200).json("Deconnecté !");
+  res.status(200).json("Deconnected !");
+};
+
+exports.desactivateAccount = (req, res) => {
+  const userId = req.params.id;
+  const sql = `DELETE FROM users2 WHERE users2.user_id = ${userId}`;
+  const db = dbc.getDB();
+  db.query(sql, userId, (err, result) => {
+    if (err) {
+      return res.status(404).json({ err });
+    }
+    // res.clearCookie("jwt");
+    else return res.status(200).json("Account disabled !");
+  });
 };
