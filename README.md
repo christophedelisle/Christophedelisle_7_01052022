@@ -8,7 +8,7 @@ Technologies principales utilisées:
 
 - Node.JS
 - Express
-- Base données SQL (mySQL)
+- Base de données SQL (mySQL)
 - ReactJS
 - Sass (scss)
 
@@ -18,14 +18,14 @@ La réalisation de ce projet m'a permis de découvrir pour la première fois la 
 
 ## Installation du back-end :
 
-`cd backend`
-`NPM install`
-Installer la base de donnée SQL
-Ajouter JWT_KEY_TOKEN = "Token_exemple" au .env
-`npm run start`
+- `cd backend`
+- `npm install`
+- Installer la base de donnée SQL
+- Ajouter JWT_KEY_TOKEN = "Token_exemple" au .env
+- `npm run start`
 
 ## Installation du front-end :
 
-`cd frontend`
-`NPM install`
-`npm run start`
+- `cd frontend`
+- `npm install`
+- `npm run start`
