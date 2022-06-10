@@ -33,7 +33,6 @@ const SendPost = () => {
 
     const token = JSON.parse(localStorage.getItem("user")).token;
     await axios.post("http://localhost:3001/api/post", post, {
-      withCredentials: true,
       headers: { authorization: `Bearer ${token}` },
     });
     document.location.reload();

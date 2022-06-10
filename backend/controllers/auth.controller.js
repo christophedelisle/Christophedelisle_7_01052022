@@ -64,7 +64,7 @@ exports.login = (req, res) => {
               expiresIn: "24h",
             }
           );
-          //res.cookie("jwt", token, { httpOnly: true });
+
           res.status(201).json({
             user: result[0],
             token: token,
@@ -78,7 +78,6 @@ exports.login = (req, res) => {
 };
 
 exports.logout = (req, res) => {
-  // res.clearCookie("jwt");
   res.status(200).json("Deconnected !");
 };
 
@@ -89,8 +88,6 @@ exports.desactivateAccount = (req, res) => {
   db.query(sql, userId, (err, result) => {
     if (err) {
       return res.status(404).json({ err });
-    }
-    // res.clearCookie("jwt");
-    else return res.status(200).json("Account disabled !");
+    } else return res.status(200).json("Account disabled !");
   });
 };

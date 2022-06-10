@@ -15,7 +15,6 @@ const Logout = () => {
   const logoutClick = async () => {
     const token = JSON.parse(localStorage.getItem("user")).token;
     await axios.get("http://localhost:3001/api/auth/logout", {
-      withCredentials: true,
       headers: { authorization: `Bearer ${token}` },
     });
     localStorage.clear();
@@ -26,7 +25,6 @@ const Logout = () => {
     const token = JSON.parse(localStorage.getItem("user")).token;
     const userId = JSON.parse(localStorage.getItem("user")).user.user_id;
     axios.get(`http://localhost:3001/api/auth/desactivateAccount/${userId}`, {
-      withCredentials: true,
       headers: { authorization: `Bearer ${token}` },
     });
     localStorage.clear();

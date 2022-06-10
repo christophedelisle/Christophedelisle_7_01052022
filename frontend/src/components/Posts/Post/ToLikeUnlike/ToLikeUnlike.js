@@ -14,7 +14,6 @@ const ToLikeUnlike = ({ postId }) => {
     };
     const token = JSON.parse(localStorage.getItem("user")).token;
     axios.patch("http://localhost:3001/api/post/:id/likeUnlike", data, {
-      withCredentials: true,
       headers: { authorization: `Bearer ${token}` },
     });
     document.location.reload();
@@ -29,7 +28,6 @@ const ToLikeUnlike = ({ postId }) => {
           "http://localhost:3001/api/post/:id/likes",
           { postId },
           {
-            withCredentials: true,
             headers: { authorization: `Bearer ${token}` },
           }
         )

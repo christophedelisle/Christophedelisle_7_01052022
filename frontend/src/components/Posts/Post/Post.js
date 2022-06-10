@@ -20,7 +20,6 @@ const Post = ({ post }) => {
         const response = await axios.get(
           `http://localhost:3001/api/post/image/${id}`,
           {
-            withCredentials: true,
             headers: { authorization: `Bearer ${token}` },
           }
         );
@@ -42,7 +41,6 @@ const Post = ({ post }) => {
 
       axios
         .delete(`http://localhost:3001/api/post/${id}`, {
-          withCredentials: true,
           headers: { authorization: `Bearer ${token}` },
         })
         .then((res, err) => {

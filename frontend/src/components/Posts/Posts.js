@@ -14,7 +14,6 @@ const ShowPosts = () => {
       const token = JSON.parse(localStorage.getItem("user")).token;
       await axios
         .get("http://localhost:3001/api/post", {
-          withCredentials: true,
           headers: { authorization: `Bearer ${token}` },
         })
 
