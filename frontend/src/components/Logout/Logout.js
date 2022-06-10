@@ -23,8 +23,8 @@ const Logout = () => {
 
   const desactivateAccount = () => {
     const token = JSON.parse(localStorage.getItem("user")).token;
-    const userId = JSON.parse(localStorage.getItem("user")).user.user_id;
-    axios.get(`http://localhost:3001/api/auth/desactivateAccount/${userId}`, {
+
+    axios.get(`http://localhost:3001/api/auth/desactivateAccount`, {
       headers: { authorization: `Bearer ${token}` },
     });
     localStorage.clear();

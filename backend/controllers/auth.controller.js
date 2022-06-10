@@ -82,7 +82,7 @@ exports.logout = (req, res) => {
 };
 
 exports.desactivateAccount = (req, res) => {
-  const userId = req.params.id;
+  const userId = req.userId;
   const sql = `DELETE FROM users2 WHERE users2.user_id = ${userId}`;
   const db = dbc.getDB();
   db.query(sql, userId, (err, result) => {
